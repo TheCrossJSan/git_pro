@@ -1,0 +1,109 @@
+#include <iostream>
+using namespace std;
+int flag=1;
+int check(char c, char d)
+{
+    if(c==d && flag==1)
+    {
+        return 1;
+    }
+    else 
+    {
+        return 0;
+    }
+}
+char multi(char a, char b)
+{
+    int c=a-b;
+    if(c==0)
+    {
+        
+        flag=flag*-1;
+        return 49;
+    }
+    else
+    {
+        if(a-48==1)
+        {
+            return b;
+        }
+        else if(a=='i')
+        {
+            if(b=='j')
+                return 107;
+            else
+            {
+                flag=flag*-1;
+                return 106;
+            } 
+        }
+        else if(a=='j')
+        {
+            if(b=='k')
+                return 105;
+            else
+            {
+                flag=flag*-1;
+                return 107;
+            } 
+        }
+        else if(a=='k')
+        {
+            if(b=='i')
+                return 106;
+            else
+            {
+                flag=flag*-1;
+                return 105;
+            } 
+        }
+    }
+}
+int main() 
+{
+    int t;
+    int l, x;
+    string s;
+    cin>>t;
+    for(int i=0; i<t; i++)
+    {
+        flag=1;
+        int k=0, j;
+        cin>>l>>x;
+        cin>>s;
+        char ans=49;
+        char chek=105;
+        for(j=0; j<l*x; j++)
+        {
+            if(k==l)
+            {
+                k=0;
+            }
+            ans=multi(ans, s[k]);
+            if(check(ans, chek)==1)
+            {
+                ans=49;
+                chek++;
+            }
+            k++;
+            if(chek==108)
+            {
+                break;
+            }
+        }
+        if(chek==108 && j==(l*x)-1)
+        {
+            cout<<"Case #"<<i+1<<":"<<" "<<"YES"<<endl;
+        }
+        else
+        {
+            cout<<"Case #"<<i+1<<":"<<" "<<"NO"<<endl;
+        }
+        //cout<<char(d+1);
+        //char b=multi(s[0], s[2]);
+        //cout<<b;
+        //cout<<flag;
+    }
+    	// your code goes here
+	return 0;
+}
