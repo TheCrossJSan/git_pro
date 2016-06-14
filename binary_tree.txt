@@ -1,0 +1,175 @@
+import java.util.*;
+import java.lang.*;
+
+class Node
+{
+	protected int data;
+	protected Node right;
+	protected Node left;
+	
+	public Node()
+	{
+		data = 0;
+		right = null;
+		left = null;
+	}
+	
+	public void setData(int data)
+	{
+		this.data = data;
+	}
+	
+	public void setLeftLink(Node link)
+	{
+		left = link;
+	}
+	
+	public void setRightLink(Node link)
+	{
+		right = link;
+	}
+	
+	public int getData()
+	{
+		return data;
+	}
+	
+	public Node getLeftLink()
+	{
+		return left;
+	}
+	
+	public Node getRightLink()
+	{
+		return right;
+	}
+	
+}
+
+class LinkedList
+{
+	protected Node start;
+	protected Node end;
+	public int size;
+	
+	public LinkedList()
+	{
+		start = null;
+		end = null;
+		//size = 0;
+	}
+	
+	public void addItem(int item)
+	{
+		Node temp = new Node();
+		Node t = start;
+		temp.setData(item);
+		if(start == null)
+		{
+			start = temp;
+			end = start;
+		}
+		else
+		{
+			while(t != null)
+			{	
+				if(item < t.getData())
+				{
+					if(t.getLeftLink() == null)
+					{
+						t.setLeftLink(temp);
+						break;
+					}
+					t = t.getLeftLink();
+				}
+				else
+				{
+					if(t.getRightLink() == null)
+						{
+							t.setRightLink(temp);
+							break;
+						}
+						t = t.getRightLink();
+				}
+			}
+		}
+	}
+	
+	public void preOrder(Node head)
+	{
+		Node t = head;
+		if(t != null)
+		{	
+			System.out.print(t.getData()+" ");
+			preOrder(t.getLeftLink());
+			preOrder(t.getRightLink());
+		}	
+	}
+	public void inOrder(Node head)
+	{
+		Node t = head;
+		if(t != null)
+		{	
+			preOrder(t.getLeftLink());
+			System.out.print(t.getData()+" ");
+			preOrder(t.getRightLink());
+		}	
+	}
+	public void postOrder(Node head)
+	{
+		Node t = head;
+		if(t != null)
+		{	
+			preOrder(t.getLeftLink());
+			preOrder(t.getRightLink());
+			System.out.print(t.getData()+" ");
+		}	
+	}
+	
+	public void display()
+	{
+		System.out.print("PreOrder traversal:");
+		preOrder(start);
+		System.out.print("\nInOrder traversal:");
+		inOrder(start);
+		System.out.print("\nPostOrder traversal:");
+		postOrder(start);
+	}
+	public int getHeight(Node head)
+	{
+		Node t = head;
+		if(t == null)
+			return 0;
+		else
+		{
+			return 1+Math.max(getHeight(t.getLeftLink()),getHeight(t.getRightLink()));
+		}
+	}
+	
+	public void height()
+	{
+		System.out.println(getHeight(start));
+	}
+}
+
+
+public class cross
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner val = new Scanner(System.in);
+		LinkedList list = new LinkedList();
+		System.out.println("Enter the value of n: ");
+		int n = val.nextInt();
+		System.out.println("Enter value:");
+		for(int i = 0; i < n; i++)
+		{
+			int item = val.nextInt();
+			list.addItem(item);
+		}
+		list.display();
+		System.out.println("Height of the tree:");
+		list.height();
+		System.out.print("\nTHE END");
+	}
+}
